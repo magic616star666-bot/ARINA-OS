@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      ARINA defaults follow the familiar flashlight/camera lock-screen arrangement.
+      Customization remains enabled so the user can replace either shortcut.
+    -->
+    <bool name="custom_lockscreen_shortcuts_enabled">true</bool>
+
+    <string-array name="config_keyguardQuickAffordanceDefaults" translatable="false">
+        <item>bottom_start:flashlight</item>
+        <item>bottom_end:camera</item>
+    </string-array>
+</resources>
