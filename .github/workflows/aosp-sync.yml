@@ -1,0 +1,37 @@
+name: AOSP Sync
+
+on:
+  workflow_dispatch:
+    inputs:
+      aosp_branch:
+        description: AOSP manifest branch
+        required: true
+        default: android-latest-release
+
+jobs:
+  sync:
+    runs-on: [self-hosted, linux, x64, arina-aosp]
+    timeout-minutes: 720
+
+    env:
+      AOSP_DIR: ${{ runner.temp }}/aosp
+      AOSP_BRANCH: ${{ inputs.aosp_branch }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Capacity check
+        run: |
+          nproc
+          free -h
+          df -h
+
+      - name: Sync AOSP
+        run: |
+          chmod +x scripts/bootstrap-aosp.sh
+          scripts/bootstrap-aosp.sh
+
+      - name: Stop before V2318 image build
+        run: |
+          echo "AOSP synced successfully."
+          echo "V2318 device tree/kernel/vendor integration is required before a flashable build."
