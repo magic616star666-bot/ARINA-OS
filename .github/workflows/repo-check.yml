@@ -1,0 +1,17 @@
+name: Repository Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate scripts
+        run: bash -n scripts/bootstrap-aosp.sh
+      - name: Show tree
+        run: find . -maxdepth 3 -type f | sort
