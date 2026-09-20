@@ -28,9 +28,9 @@ class NotificationCenterPatcherTest(unittest.TestCase):
                 "notification/stack/NotificationStackScrollLayoutController.java"
             )
 
-            row.parent.mkdir(parents=True)
-            stack.parent.mkdir(parents=True)
-            controller.parent.mkdir(parents=True)
+            row.parent.mkdir(parents=True, exist_ok=True)
+            stack.parent.mkdir(parents=True, exist_ok=True)
+            controller.parent.mkdir(parents=True, exist_ok=True)
 
             row.write_text(
                 """
