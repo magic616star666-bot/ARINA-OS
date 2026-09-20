@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="arina_space_1">4dp</dimen>
+    <dimen name="arina_space_2">8dp</dimen>
+    <dimen name="arina_space_3">12dp</dimen>
+    <dimen name="arina_space_4">16dp</dimen>
+    <dimen name="arina_space_5">20dp</dimen>
+    <dimen name="arina_radius_small">12dp</dimen>
+    <dimen name="arina_radius_medium">16dp</dimen>
+    <dimen name="arina_radius_card">22dp</dimen>
+    <dimen name="arina_radius_large">26dp</dimen>
+    <dimen name="arina_radius_sheet">30dp</dimen>
+</resources>
