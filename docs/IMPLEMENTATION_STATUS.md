@@ -27,6 +27,9 @@
 - SystemUI bouncer ARINA resource overlays
 - real SystemUI ARINA clock/date visual layer
 - real notification stack glass/rounding treatment
+- ARINA-style grouped notification hierarchy on real AOSP groups
+- AOSP-driven lock-screen privacy redaction with ARINA privacy glass
+- expanded notification haptic/motion hooks without replacing AOSP actions
 - biometric state indicator driven by real Keyguard auth state
 - flashlight + camera AOSP Quick Affordance defaults with manual customization
 - swipe-to-bouncer ARINA visual hint on the real Keyguard root
