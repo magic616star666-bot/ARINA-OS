@@ -1,7 +1,8 @@
 # Common ARINA OS product configuration.
 
 PRODUCT_PACKAGES += \
-    ArinaHome
+    ArinaHome \
+    ArinaLockScreen
 
 PRODUCT_COPY_FILES += \
     vendor/arina/config/permissions/privapp-permissions-arina.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-arina.xml
