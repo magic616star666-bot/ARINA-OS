@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+    <!--
+      Keep privileged permissions minimal.
+      Add permissions only when a real system feature requires them and
+      document the reason in the corresponding package.
+    -->
+    <privapp-permissions package="com.arina.home">
+    </privapp-permissions>
+</permissions>
