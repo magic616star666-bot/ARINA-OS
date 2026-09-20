@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="arina_notification_undo">Undo</string>
+    <string name="arina_notification_dismissed">Notification dismissed</string>
+    <string name="arina_notification_dismissed_undo_available">Notification dismissed. Undo available.</string>
+    <string name="arina_notification_restored">Notification restored</string>
+    <string name="arina_notifications_cleared">Notifications cleared</string>
+    <string name="arina_notifications_cleared_undo_available">Notifications cleared. Undo available.</string>
+    <string name="arina_notifications_restored">Notifications restored</string>
+</resources>
