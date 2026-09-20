@@ -97,6 +97,7 @@ public final class ArinaKeyguardNotificationStyler {
         }
 
         stylePublicRedactionSurface(row, sensitive);
+        ArinaNotificationInteractionStyler.style(row);
         sExpandedRows.put(row, expanded);
     }
 
