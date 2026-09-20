@@ -11,7 +11,7 @@ on:
 jobs:
   build-reference:
     runs-on: [self-hosted, linux, x64, arina-aosp]
-    timeout-minutes: 720
+    timeout-minutes: 360
 
     env:
       AOSP_DIR: ${{ runner.temp }}/aosp
