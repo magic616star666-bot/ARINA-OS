@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="arina_bg">#050B16</color>
+    <color name="arina_surface">#14233A</color>
+    <color name="arina_surface_soft">#223A5A</color>
+    <color name="arina_ice">#EAF7FF</color>
+    <color name="arina_secondary">#A9C1D8</color>
+    <color name="arina_blue">#4A7DFF</color>
+    <color name="arina_cyan">#35C6FF</color>
+</resources>
