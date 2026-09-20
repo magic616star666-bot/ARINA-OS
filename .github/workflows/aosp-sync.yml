@@ -25,7 +25,7 @@ jobs:
       - name: Sync AOSP
         env:
           AOSP_DIR: ${{ runner.temp }}/aosp
-          AOSP_BRANCH: android-latest-release
+          AOSP_BRANCH: android16-release
         run: |
           chmod +x scripts/bootstrap-aosp.sh
           scripts/bootstrap-aosp.sh
@@ -45,9 +45,9 @@ jobs:
           cd "$AOSP_DIR"
           source build/envsetup.sh
           lunch arina_cf_phone-userdebug
-          m ArinaHome ArinaLockScreen
+          m SystemUI ArinaHome ArinaLockScreen
 
       - name: Status
         run: |
-          echo "ARINA Home and Lock Screen reference build completed."
+          echo "ARINA SystemUI/Keyguard, Home and Lock Screen preview build completed."
           echo "Shipping Lock Screen still requires SystemUI/Keyguard wiring."
