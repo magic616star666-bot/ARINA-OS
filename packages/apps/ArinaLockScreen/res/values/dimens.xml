@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="arina_lock_radius_card">24dp</dimen>
+    <dimen name="arina_lock_radius_pill">999dp</dimen>
+    <dimen name="arina_lock_horizontal_padding">20dp</dimen>
+    <dimen name="arina_lock_touch_target">56dp</dimen>
+</resources>
