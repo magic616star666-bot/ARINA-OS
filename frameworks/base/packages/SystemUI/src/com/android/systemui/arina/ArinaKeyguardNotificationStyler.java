@@ -3,6 +3,7 @@ package com.android.systemui.arina;
 import android.animation.ObjectAnimator;
 import android.graphics.Color;
 import android.graphics.Outline;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.view.HapticFeedbackConstants;
@@ -26,6 +27,8 @@ public final class ArinaKeyguardNotificationStyler {
 
     private static final WeakHashMap<View, Boolean> sSensitiveRows = new WeakHashMap<>();
     private static final WeakHashMap<View, Boolean> sExpandedRows = new WeakHashMap<>();
+    private static final WeakHashMap<View, Drawable> sOriginalPublicBackgrounds =
+            new WeakHashMap<>();
 
     private ArinaKeyguardNotificationStyler() {}
 
@@ -162,21 +165,23 @@ public final class ArinaKeyguardNotificationStyler {
         if (publicLayout == null) return;
 
         final float density = row.getResources().getDisplayMetrics().density;
-        GradientDrawable privacyGlass = new GradientDrawable();
-        privacyGlass.setCornerRadius(22f * density);
+        if (!sOriginalPublicBackgrounds.containsKey(publicLayout)) {
+            sOriginalPublicBackgrounds.put(publicLayout, publicLayout.getBackground());
+        }
 
         if (sensitive) {
+            GradientDrawable privacyGlass = new GradientDrawable();
+            privacyGlass.setCornerRadius(22f * density);
             privacyGlass.setColor(Color.argb(102, 8, 20, 38));
             privacyGlass.setStroke(
                     Math.max(1, Math.round(density)),
                     Color.argb(72, 53, 198, 255));
+            publicLayout.setBackground(privacyGlass);
             publicLayout.setAlpha(0.96f);
         } else {
-            privacyGlass.setColor(Color.TRANSPARENT);
-            privacyGlass.setStroke(0, Color.TRANSPARENT);
+            publicLayout.setBackground(sOriginalPublicBackgrounds.get(publicLayout));
             publicLayout.setAlpha(1f);
         }
-        publicLayout.setBackground(privacyGlass);
     }
 
     private static boolean resolveSensitive(View row) {
