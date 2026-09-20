@@ -33,6 +33,10 @@
 - ARINA-style inline notification actions on real AOSP action views
 - ARINA-styled RemoteInput quick replies without bypassing lockscreen security
 - ARINA-styled real swipe menu actions with AOSP accessibility/click behavior preserved
+- AOSP notification-history footer styled with ARINA glass controls
+- staged ARINA clear-all with five-second Undo before AOSP backend clear
+- undoable swipe/accessibility dismiss path that preserves AOSP clearability/security checks
+- accessibility announcements and focusable Undo surface
 - biometric state indicator driven by real Keyguard auth state
 - flashlight + camera AOSP Quick Affordance defaults with manual customization
 - swipe-to-bouncer ARINA visual hint on the real Keyguard root
