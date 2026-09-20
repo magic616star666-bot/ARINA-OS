@@ -108,24 +108,7 @@ public final class ArinaKeyguardVisualController {
         if (!(stackView instanceof ViewGroup)) return;
 
         ViewGroup stack = (ViewGroup) stackView;
-        float density = stack.getResources().getDisplayMetrics().density;
-
-        GradientDrawable glass = new GradientDrawable();
-        glass.setColor(Color.argb(48, 16, 35, 63));
-        glass.setCornerRadius(28f * density);
-        glass.setStroke(Math.max(1, Math.round(density)), Color.argb(36, 216, 240, 255));
-        stack.setBackground(glass);
-        stack.setOutlineProvider(new RoundOutlineProvider(28f * density));
-
-        for (int i = 0; i < stack.getChildCount(); i++) {
-            View child = stack.getChildAt(i);
-            String className = child.getClass().getName();
-            if (className.contains("ExpandableNotificationRow")) {
-                child.setElevation(4f * density);
-                child.setOutlineProvider(new RoundOutlineProvider(22f * density));
-                child.setClipToOutline(true);
-            }
-        }
+        ArinaKeyguardNotificationStyler.styleStack(stack);
     }
 
     private static int id(View view, String name) {
