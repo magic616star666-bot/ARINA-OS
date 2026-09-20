@@ -12,9 +12,7 @@
             android:name=".ArinaLockScreenActivity"
             android:exported="true"
             android:excludeFromRecents="true"
-            android:launchMode="singleTask"
-            android:showWhenLocked="true"
-            android:turnScreenOn="true">
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="com.arina.intent.action.PREVIEW_LOCK_SCREEN" />
                 <category android:name="android.intent.category.DEFAULT" />
