@@ -17,10 +17,13 @@ jobs:
     timeout-minutes: 360
 
     env:
-      AOSP_DIR: ${{ runner.temp }}/aosp
       AOSP_BRANCH: android16-release
 
     steps:
+      - name: Initialize build paths
+        run: |
+          echo "AOSP_DIR=$RUNNER_TEMP/aosp" >> "$GITHUB_ENV"
+
       - name: Checkout ARINA OS
         uses: actions/checkout@v4
 
