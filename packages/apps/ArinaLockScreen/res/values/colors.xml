@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="arina_lock_bg">#050B16</color>
+    <color name="arina_lock_ice">#EAF7FF</color>
+    <color name="arina_lock_steel">#A9C1D8</color>
+    <color name="arina_lock_blue">#4A7DFF</color>
+    <color name="arina_lock_cyan">#35C6FF</color>
+</resources>
