@@ -20,6 +20,16 @@ public final class ArinaKeyguardAuthObserver {
 
     private static final String TAG = "ARINA-KeyguardAuth";
 
+    public interface UiListener {
+        void onStateChanged(State state);
+    }
+
+    private static volatile UiListener sUiListener;
+
+    public static void setUiListener(UiListener listener) {
+        sUiListener = listener;
+    }
+
     public enum State {
         IDLE,
         PRIMARY_CREDENTIAL,
@@ -120,5 +130,10 @@ public final class ArinaKeyguardAuthObserver {
     private void setState(State state, String reason) {
         mState = state;
         Log.d(TAG, state + " · " + reason);
+
+        UiListener listener = sUiListener;
+        if (listener != null) {
+            listener.onStateChanged(state);
+        }
     }
 }
