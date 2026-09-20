@@ -26,9 +26,15 @@ rsync -a --delete \
   "$REPO_ROOT/frameworks/base/packages/SystemUI/src/com/android/systemui/arina/" \
   "$AOSP_DIR/frameworks/base/packages/SystemUI/src/com/android/systemui/arina/"
 
+mkdir -p "$AOSP_DIR/frameworks/base/packages/SystemUI/res/values"
+cp \
+  "$REPO_ROOT/frameworks/base/packages/SystemUI/res/values/arina_strings.xml" \
+  "$AOSP_DIR/frameworks/base/packages/SystemUI/res/values/arina_strings.xml"
+
 # Wire ARINA state + visuals into the Android 16 real SystemUI Keyguard.
 AOSP_DIR="$AOSP_DIR" python3 "$REPO_ROOT/scripts/patch-systemui-keyguard.py"
 AOSP_DIR="$AOSP_DIR" python3 "$REPO_ROOT/scripts/patch-systemui-keyguard-visuals.py"
 AOSP_DIR="$AOSP_DIR" python3 "$REPO_ROOT/scripts/patch-systemui-notifications.py"
+AOSP_DIR="$AOSP_DIR" python3 "$REPO_ROOT/scripts/patch-systemui-notification-center.py"
 
-echo "ARINA Home and real SystemUI/Keyguard auth + visual + notification integration applied to $AOSP_DIR"
+echo "ARINA Home and real SystemUI/Keyguard auth + visual + notification-center integration applied to $AOSP_DIR"
