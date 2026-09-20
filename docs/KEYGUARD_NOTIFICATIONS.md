@@ -57,3 +57,47 @@ No touch listener is replaced.
 - `ExpandableNotificationRow.java` for existing expansion/group state
 
 The patcher fails closed if the expected Android 16 anchors are not present.
+
+
+## Inline actions
+
+ARINA styles the real AOSP notification action container rather than creating a second
+action system.
+
+- existing PendingIntent click handlers stay installed by AOSP
+- content descriptions and accessibility actions are untouched
+- action pills receive ARINA glass, rounded geometry and pressed-state drawables
+- app-provided action semantics remain unchanged
+
+## Quick replies
+
+The real SystemUI `RemoteInputView` remains responsible for reply entry and sending.
+
+ARINA applies presentation only:
+- glass reply field
+- ARINA ice text / steel hint
+- blue/cyan send control
+- 44dp minimum interaction sizing
+- visual restyling when RemoteInput is inflated after the notification row
+
+ARINA does not construct RemoteInput results, send PendingIntents, dismiss Keyguard,
+or bypass AOSP unlock/authentication requirements.
+
+## Swipe actions
+
+The existing notification row provider / menu view remains the swipe-action owner.
+
+ARINA styles the real menu surface and its items with:
+- translucent navy glass
+- 22-24dp roundness
+- restrained cyan pressed state
+- depth/elevation matching the lock-screen notification cards
+
+Snooze, notification settings, dismiss behavior and any accessibility exposure remain
+implemented by the AOSP notification row/menu pipeline.
+
+## Security regression guard
+
+`tests/test_notification_interaction_security.py` prevents the ARINA interaction styler
+from introducing its own click/touch/accessibility delegates, PendingIntent sends,
+RemoteInput result submission, or direct Keyguard dismissal.
