@@ -36,7 +36,7 @@ public final class ArinaKeyguardOverlayView extends View {
         public void run() {
             invalidate();
             if (mAttached) {
-                mHandler.postDelayed(this, 1000L);
+                mHandler.postDelayed(this, 30000L);
             }
         }
     };
