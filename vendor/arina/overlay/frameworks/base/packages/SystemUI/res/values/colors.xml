@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ARINA lock/bouncer palette; semantic emergency colors remain AOSP-owned. -->
+    <color name="keyguard_shadow_color">#66000000</color>
+    <color name="keyguard_affordance">#FFEAF7FF</color>
+    <color name="bouncer_password_focus_color">#FF35C6FF</color>
+</resources>
