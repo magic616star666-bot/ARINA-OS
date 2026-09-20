@@ -20,6 +20,11 @@
 - original ARINA wallpaper renderer
 - ARINA press/haptic interaction baseline
 - ARINA Lock Screen visual foundation
+- Android 16 SystemUI/Keyguard real-auth integration
+- real PIN/password/pattern flow delegated to AOSP Keyguard
+- real biometric state wired through KeyguardUpdateMonitor
+- credential success/failure/lockout observer
+- SystemUI bouncer ARINA resource overlays
 - real clock/date
 - Lock Screen glass notification surface
 - bottom action controls
@@ -28,7 +33,6 @@
 - Home + Lock Screen CI build targets
 
 ## Next engineering blocks
-- SystemUI/Keyguard wiring for shipping Lock Screen
 - original ARINA icon assets
 - real widgets and folders
 - Control Center
