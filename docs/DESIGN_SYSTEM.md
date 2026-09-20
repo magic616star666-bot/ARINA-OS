@@ -5,7 +5,7 @@
 ARINA OS should feel premium, calm, precise and highly polished.
 
 Design target:
-- Apple-level refinement and interaction quality
+- end-to-end iOS-inspired refinement and interaction quality
 - original ARINA branding
 - no direct copying of Apple proprietary icons, assets, private frameworks or source code
 - visually consistent across Lock Screen, Home, Control Center, Phone, Conference, Settings and system dialogs
@@ -632,3 +632,89 @@ Do not copy:
 - exact branded assets
 
 ARINA should ultimately look recognizable as ARINA OS.
+
+
+## FINAL PRODUCT LOCK — A TO Z EXPERIENCE
+
+This specification is now the visual/interaction source of truth for ARINA OS.
+
+### Experience target
+ARINA OS should deliver an end-to-end **iOS-inspired premium operating-system experience** across every visible layer while keeping the product identity entirely ARINA.
+
+This applies to:
+- boot and setup
+- Lock Screen
+- Home Screen
+- widgets
+- app folders
+- search
+- Notification Center
+- Control Center
+- status bar
+- gestures
+- app launch/close transitions
+- multitasking/recents
+- Settings
+- Phone
+- Contacts
+- Messages
+- Camera shell
+- Photos shell
+- Files
+- Clock
+- Calculator
+- keyboard surfaces
+- share sheets
+- permission prompts
+- system dialogs
+- bottom sheets
+- volume/brightness HUDs
+- charging UI
+- privacy indicators
+- emergency/SOS surfaces
+- ARINA Conference Hub
+
+### Branding lock
+- Product name: **ARINA OS**
+- Logo/boot mark: **ARINA only**
+- App/system icon artwork: original ARINA icon family
+- Wallpapers: original ARINA artwork
+- Sounds/haptics: original ARINA sound and haptic language
+- No Apple logo, Apple wallpapers, proprietary Apple icon artwork, bundled Apple fonts, or copied private code/assets
+
+### Visual fidelity target
+The target is the same class of polish users associate with iOS:
+- calm spacing and hierarchy
+- soft translucent materials
+- rounded geometry
+- restrained color
+- precise typography
+- smooth gesture continuity
+- spring-based motion
+- clean, large touch targets
+- visually quiet defaults
+- consistent component behavior everywhere
+
+### Interaction fidelity target
+Every component should behave predictably and consistently:
+- tap = immediate press feedback
+- long press = contextual expansion
+- swipe = direct-manipulation movement
+- drag = object follows finger
+- release = spring settle
+- dismiss = reverse spatial motion
+- destructive action = explicit confirmation where appropriate
+- system state changes = visible + haptic confirmation
+
+### ARINA differentiation
+ARINA should not look like a generic Android skin. Its differentiation comes from:
+- ARINA branding
+- ARINA Conference as a first-class system feature
+- ARINA intelligence layer
+- controlled navy/cyan signature accents
+- original iconography and wallpapers
+- original boot/sound/haptic identity
+
+### Final implementation rule
+If any future screen conflicts with this document, this document wins unless the design system itself is deliberately revised.
+
