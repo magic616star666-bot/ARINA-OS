@@ -269,13 +269,26 @@ public final class ArinaNotificationInteractionStyler {
 
     private static Object invoke(Object target, String methodName) {
         if (target == null) return null;
+
         try {
             Method method = target.getClass().getMethod(methodName);
             method.setAccessible(true);
             return method.invoke(target);
         } catch (ReflectiveOperationException | SecurityException ignored) {
-            return null;
+            // Some notification-row helpers are package/private implementation details.
         }
+
+        Class<?> type = target.getClass();
+        while (type != null) {
+            try {
+                Method method = type.getDeclaredMethod(methodName);
+                method.setAccessible(true);
+                return method.invoke(target);
+            } catch (ReflectiveOperationException | SecurityException ignored) {
+                type = type.getSuperclass();
+            }
+        }
+        return null;
     }
 
     private static StateListDrawable pressableGlass(
