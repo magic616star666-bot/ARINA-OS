@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Final ARINA lock-screen affordance geometry. -->
+    <dimen name="keyguard_affordance_fixed_height">60dp</dimen>
+    <dimen name="keyguard_affordance_fixed_width">60dp</dimen>
+    <dimen name="keyguard_affordance_fixed_radius">30dp</dimen>
+    <dimen name="keyguard_affordance_fixed_padding">17dp</dimen>
+    <dimen name="keyguard_affordance_horizontal_offset">24dp</dimen>
+    <dimen name="keyguard_affordance_vertical_offset">28dp</dimen>
+
+    <!-- Keep system indications clear of the larger ARINA shortcut capsules. -->
+    <dimen name="keyguard_indication_area_padding">96dp</dimen>
+</resources>
