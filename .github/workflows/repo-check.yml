@@ -22,6 +22,7 @@ jobs:
           python3 -m py_compile scripts/patch-systemui-keyguard.py
           python3 -m py_compile scripts/patch-systemui-keyguard-visuals.py
           python3 -m py_compile scripts/patch-systemui-notifications.py
+          python3 -m py_compile scripts/patch-systemui-notification-center.py
           grep -q "ARINA_KEYGUARD_AUTH_WIRING" scripts/patch-systemui-keyguard.py
           grep -q "onCredentialAttempt" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaKeyguardAuthObserver.java
           grep -q "onBiometricAuthenticated" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaKeyguardAuthObserver.java
@@ -36,12 +37,21 @@ jobs:
           grep -q "expandedPublic" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaKeyguardNotificationStyler.java
           grep -q "RemoteInputView" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaNotificationInteractionStyler.java
           grep -q "getMenuView" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaNotificationInteractionStyler.java
+          grep -q "stageRowDismiss" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaNotificationCenterController.java
+          grep -q "stageClearAll" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaNotificationCenterController.java
+          grep -q "arina_notification_undo" frameworks/base/packages/SystemUI/res/values/arina_strings.xml
 
       - name: Test notification patcher
         run: python3 -m unittest tests/test_patch_systemui_notifications.py
 
       - name: Test notification interaction security
         run: python3 -m unittest tests/test_notification_interaction_security.py
+
+      - name: Test notification center patcher
+        run: python3 -m unittest tests/test_patch_systemui_notification_center.py
+
+      - name: Test notification center security
+        run: python3 -m unittest tests/test_notification_center_security.py
 
       - name: Validate product wiring
         run: |
