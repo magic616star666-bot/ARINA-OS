@@ -25,6 +25,8 @@ public final class ArinaKeyguardVisualController {
     public static void attach(ViewGroup keyguardRoot, ViewGroup shadeWindow) {
         if (keyguardRoot == null || shadeWindow == null) return;
 
+        ArinaNotificationCenterController.attachHost(shadeWindow);
+
         ArinaKeyguardOverlayView overlay = findOverlay(keyguardRoot);
         if (overlay == null) {
             overlay = new ArinaKeyguardOverlayView(keyguardRoot.getContext());
