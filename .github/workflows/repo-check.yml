@@ -34,9 +34,14 @@ jobs:
           grep -q "ARINA_NOTIFICATION_GROUP_WIRING" scripts/patch-systemui-notifications.py
           grep -q "onUserExpansionRequested" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaKeyguardNotificationStyler.java
           grep -q "expandedPublic" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaKeyguardNotificationStyler.java
+          grep -q "RemoteInputView" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaNotificationInteractionStyler.java
+          grep -q "getMenuView" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaNotificationInteractionStyler.java
 
       - name: Test notification patcher
         run: python3 -m unittest tests/test_patch_systemui_notifications.py
+
+      - name: Test notification interaction security
+        run: python3 -m unittest tests/test_notification_interaction_security.py
 
       - name: Validate product wiring
         run: |
