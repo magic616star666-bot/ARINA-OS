@@ -20,9 +20,15 @@ jobs:
       - name: Validate SystemUI patcher
         run: |
           python3 -m py_compile scripts/patch-systemui-keyguard.py
+          python3 -m py_compile scripts/patch-systemui-keyguard-visuals.py
           grep -q "ARINA_KEYGUARD_AUTH_WIRING" scripts/patch-systemui-keyguard.py
           grep -q "onCredentialAttempt" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaKeyguardAuthObserver.java
           grep -q "onBiometricAuthenticated" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaKeyguardAuthObserver.java
+          grep -q "ARINA_KEYGUARD_VISUAL_WIRING" scripts/patch-systemui-keyguard-visuals.py
+          grep -q "Swipe up to unlock" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaKeyguardOverlayView.java
+          grep -q "notification_stack_scroller" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaKeyguardVisualController.java
+          grep -q "bottom_start:flashlight" vendor/arina/overlay/frameworks/base/packages/SystemUI/res/values/config.xml
+          grep -q "bottom_end:camera" vendor/arina/overlay/frameworks/base/packages/SystemUI/res/values/config.xml
 
       - name: Validate product wiring
         run: |
