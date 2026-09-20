@@ -13,16 +13,26 @@
 - ARINA product registration
 - ARINA common product configuration
 - privileged-permission foundation
-- ARINA Home system package
-- ARINA Home theme/colors/activity foundation
+- functional ARINA Home launcher foundation
+- real installed-app discovery and app launch
+- Home search/filter
+- dynamic dock selection
+- original ARINA wallpaper renderer
+- ARINA press/haptic interaction baseline
+- ARINA Lock Screen visual foundation
+- real clock/date
+- Lock Screen glass notification surface
+- bottom action controls
+- swipe-up motion foundation
+- secure camera launch path
+- Home + Lock Screen CI build targets
 
 ## Next engineering blocks
-- real launcher app model
-- ARINA icon assets
-- SystemUI integration
-- Lock Screen
+- SystemUI/Keyguard wiring for shipping Lock Screen
+- original ARINA icon assets
+- real widgets and folders
 - Control Center
-- notifications
+- notifications integration
 - recents
 - Phone/Conference system package
 - Settings extensions
