@@ -37,15 +37,16 @@ jobs:
           chmod +x scripts/integrate-arina.sh
           scripts/integrate-arina.sh
 
-      - name: Build ARINA reference product
+      - name: Build ARINA Home and Lock Screen
         shell: bash
         run: |
           cd "$AOSP_DIR"
           source build/envsetup.sh
           lunch arina_cf_phone-userdebug
-          m ArinaHome
+          m ArinaHome ArinaLockScreen
 
       - name: Status
         run: |
-          echo "ARINA reference product source integration passed."
+          echo "ARINA Home and Lock Screen foundations compiled on the reference AOSP target."
+          echo "Shipping Lock Screen integration still requires SystemUI/Keyguard wiring."
           echo "V2318 hardware image remains gated on validated Vivo-specific device sources."
