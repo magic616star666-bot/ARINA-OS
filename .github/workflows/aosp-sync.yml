@@ -2,20 +2,15 @@ name: ARINA AOSP Build
 
 on:
   workflow_dispatch:
-    inputs:
-      aosp_branch:
-        description: AOSP manifest branch
-        required: true
-        default: android-latest-release
 
 jobs:
   build-reference:
-    runs-on: [self-hosted, linux, x64, arina-aosp]
+    runs-on:
+      - self-hosted
+      - linux
+      - x64
+      - arina-aosp
     timeout-minutes: 360
-
-    env:
-      AOSP_DIR: ${{ runner.temp }}/aosp
-      AOSP_BRANCH: ${{ inputs.aosp_branch }}
 
     steps:
       - name: Checkout ARINA OS
@@ -28,16 +23,23 @@ jobs:
           df -h
 
       - name: Sync AOSP
+        env:
+          AOSP_DIR: ${{ runner.temp }}/aosp
+          AOSP_BRANCH: android-latest-release
         run: |
           chmod +x scripts/bootstrap-aosp.sh
           scripts/bootstrap-aosp.sh
 
       - name: Integrate ARINA source layers
+        env:
+          AOSP_DIR: ${{ runner.temp }}/aosp
         run: |
           chmod +x scripts/integrate-arina.sh
           scripts/integrate-arina.sh
 
       - name: Build ARINA Home and Lock Screen
+        env:
+          AOSP_DIR: ${{ runner.temp }}/aosp
         shell: bash
         run: |
           cd "$AOSP_DIR"
@@ -47,6 +49,5 @@ jobs:
 
       - name: Status
         run: |
-          echo "ARINA Home and Lock Screen foundations compiled on the reference AOSP target."
-          echo "Shipping Lock Screen integration still requires SystemUI/Keyguard wiring."
-          echo "V2318 hardware image remains gated on validated Vivo-specific device sources."
+          echo "ARINA Home and Lock Screen reference build completed."
+          echo "Shipping Lock Screen still requires SystemUI/Keyguard wiring."
