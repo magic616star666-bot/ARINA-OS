@@ -11,7 +11,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate scripts
-        run: bash -n scripts/bootstrap-aosp.sh
+
+      - name: Validate shell scripts
+        run: |
+          bash -n scripts/bootstrap-aosp.sh
+          bash -n scripts/integrate-arina.sh
+
+      - name: Validate SystemUI patcher
+        run: |
+          python3 -m py_compile scripts/patch-systemui-keyguard.py
+          grep -q "ARINA_KEYGUARD_AUTH_WIRING" scripts/patch-systemui-keyguard.py
+          grep -q "onCredentialAttempt" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaKeyguardAuthObserver.java
+          grep -q "onBiometricAuthenticated" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaKeyguardAuthObserver.java
+
+      - name: Validate product wiring
+        run: |
+          grep -q "PRODUCT_PACKAGE_OVERLAYS" vendor/arina/config/common.mk
+          grep -q "ArinaHome" vendor/arina/config/common.mk
+          ! grep -q "^[[:space:]]*ArinaLockScreen[[:space:]]*$" vendor/arina/config/common.mk
+
       - name: Show tree
-        run: find . -maxdepth 3 -type f | sort
+        run: find . -maxdepth 5 -type f | sort
