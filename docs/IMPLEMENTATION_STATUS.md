@@ -25,6 +25,11 @@
 - real biometric state wired through KeyguardUpdateMonitor
 - credential success/failure/lockout observer
 - SystemUI bouncer ARINA resource overlays
+- real SystemUI ARINA clock/date visual layer
+- real notification stack glass/rounding treatment
+- biometric state indicator driven by real Keyguard auth state
+- flashlight + camera AOSP Quick Affordance defaults with manual customization
+- swipe-to-bouncer ARINA visual hint on the real Keyguard root
 - real clock/date
 - Lock Screen glass notification surface
 - bottom action controls
@@ -36,7 +41,6 @@
 - original ARINA icon assets
 - real widgets and folders
 - Control Center
-- notifications integration
 - recents
 - Phone/Conference system package
 - Settings extensions
