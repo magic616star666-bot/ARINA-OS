@@ -17,4 +17,9 @@ for app in ArinaHome ArinaLockScreen; do
   rsync -a --delete "$REPO_ROOT/packages/apps/$app/" "$AOSP_DIR/packages/apps/$app/"
 done
 
-echo "ARINA Home + Lock Screen source layers integrated into $AOSP_DIR"
+mkdir -p "$AOSP_DIR/frameworks/base/packages/SystemUI/src/com/android/systemui/arina"
+rsync -a --delete \
+  "$REPO_ROOT/frameworks/base/packages/SystemUI/src/com/android/systemui/arina/" \
+  "$AOSP_DIR/frameworks/base/packages/SystemUI/src/com/android/systemui/arina/"
+
+echo "ARINA Home, Lock Screen foundation and SystemUI Keyguard contract integrated into $AOSP_DIR"
