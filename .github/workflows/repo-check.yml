@@ -35,6 +35,9 @@ jobs:
           grep -q "onUserExpansionRequested" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaKeyguardNotificationStyler.java
           grep -q "expandedPublic" frameworks/base/packages/SystemUI/src/com/android/systemui/arina/ArinaKeyguardNotificationStyler.java
 
+      - name: Test notification patcher
+        run: python3 -m unittest tests/test_patch_systemui_notifications.py
+
       - name: Validate product wiring
         run: |
           grep -q "PRODUCT_PACKAGE_OVERLAYS" vendor/arina/config/common.mk
