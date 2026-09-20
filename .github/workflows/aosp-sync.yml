@@ -1,4 +1,4 @@
-name: AOSP Sync
+name: ARINA AOSP Build
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
         default: android-latest-release
 
 jobs:
-  sync:
+  build-reference:
     runs-on: [self-hosted, linux, x64, arina-aosp]
     timeout-minutes: 720
 
@@ -18,7 +18,8 @@ jobs:
       AOSP_BRANCH: ${{ inputs.aosp_branch }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout ARINA OS
+        uses: actions/checkout@v4
 
       - name: Capacity check
         run: |
@@ -31,7 +32,20 @@ jobs:
           chmod +x scripts/bootstrap-aosp.sh
           scripts/bootstrap-aosp.sh
 
-      - name: Stop before V2318 image build
+      - name: Integrate ARINA source layers
         run: |
-          echo "AOSP synced successfully."
-          echo "V2318 device tree/kernel/vendor integration is required before a flashable build."
+          chmod +x scripts/integrate-arina.sh
+          scripts/integrate-arina.sh
+
+      - name: Build ARINA reference product
+        shell: bash
+        run: |
+          cd "$AOSP_DIR"
+          source build/envsetup.sh
+          lunch arina_cf_phone-userdebug
+          m ArinaHome
+
+      - name: Status
+        run: |
+          echo "ARINA reference product source integration passed."
+          echo "V2318 hardware image remains gated on validated Vivo-specific device sources."
