@@ -1,10 +1,14 @@
-name: ARINA AOSP Build
+name: ARINA AOSP SystemUI + Cuttlefish Validation
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - .ci/run-aosp-validation
 
 jobs:
-  build-reference:
+  validate-reference:
     runs-on:
       - self-hosted
       - linux
@@ -12,42 +16,120 @@ jobs:
       - arina-aosp
     timeout-minutes: 360
 
+    env:
+      AOSP_DIR: ${{ runner.temp }}/aosp
+      AOSP_BRANCH: android16-release
+
     steps:
       - name: Checkout ARINA OS
         uses: actions/checkout@v4
 
-      - name: Capacity check
+      - name: Host capacity and virtualization check
         run: |
+          set -euxo pipefail
+          uname -a
           nproc
           free -h
           df -h
+          test -e /dev/kvm
+          test -r /dev/kvm
+          test -w /dev/kvm
 
       - name: Sync AOSP
-        env:
-          AOSP_DIR: ${{ runner.temp }}/aosp
-          AOSP_BRANCH: android16-release
         run: |
+          set -euxo pipefail
           chmod +x scripts/bootstrap-aosp.sh
           scripts/bootstrap-aosp.sh
 
       - name: Integrate ARINA source layers
-        env:
-          AOSP_DIR: ${{ runner.temp }}/aosp
         run: |
+          set -euxo pipefail
           chmod +x scripts/integrate-arina.sh
           scripts/integrate-arina.sh
 
-      - name: Build ARINA Home and Lock Screen
-        env:
-          AOSP_DIR: ${{ runner.temp }}/aosp
+      - name: Full SystemUI compile
         shell: bash
         run: |
+          set -euxo pipefail
           cd "$AOSP_DIR"
           source build/envsetup.sh
           lunch arina_cf_phone-userdebug
-          m SystemUI ArinaHome ArinaLockScreen
+          m -j"$(nproc)" SystemUI ArinaHome ArinaLockScreen
 
-      - name: Status
+      - name: Full Cuttlefish product build
+        shell: bash
         run: |
-          echo "ARINA SystemUI/Keyguard, Home and Lock Screen preview build completed."
-          echo "Shipping Lock Screen still requires SystemUI/Keyguard wiring."
+          set -euxo pipefail
+          cd "$AOSP_DIR"
+          source build/envsetup.sh
+          lunch arina_cf_phone-userdebug
+          m -j"$(nproc)"
+
+      - name: Boot Cuttlefish and verify Android completed boot
+        shell: bash
+        run: |
+          set -euxo pipefail
+          cd "$AOSP_DIR"
+          source build/envsetup.sh
+          lunch arina_cf_phone-userdebug
+
+          export PATH="$AOSP_DIR/out/host/linux-x86/bin:$PATH"
+          mkdir -p "$GITHUB_WORKSPACE/validation"
+
+          launch_cvd \
+            --daemon \
+            --report_anonymous_usage_stats=n \
+            --start_webrtc=false \
+            --cpus=4 \
+            --memory_mb=4096
+
+          adb wait-for-device
+
+          booted=0
+          for i in $(seq 1 90); do
+            value="$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')"
+            if [ "$value" = "1" ]; then
+              booted=1
+              break
+            fi
+            sleep 10
+          done
+
+          adb shell getprop > "$GITHUB_WORKSPACE/validation/getprop.txt" || true
+          adb logcat -d -b all > "$GITHUB_WORKSPACE/validation/logcat.txt" || true
+          adb shell dumpsys SurfaceFlinger > "$GITHUB_WORKSPACE/validation/surfaceflinger.txt" || true
+          adb shell dumpsys activity activities > "$GITHUB_WORKSPACE/validation/activities.txt" || true
+          adb shell cmd package list packages | grep -E 'com\.arina|systemui' \
+            > "$GITHUB_WORKSPACE/validation/packages.txt" || true
+
+          if [ "$booted" -ne 1 ]; then
+            echo "Cuttlefish did not reach sys.boot_completed=1" >&2
+            exit 1
+          fi
+
+          adb shell getprop sys.boot_completed | tee "$GITHUB_WORKSPACE/validation/boot_completed.txt"
+          adb shell pidof com.android.systemui | tee "$GITHUB_WORKSPACE/validation/systemui_pid.txt"
+          test -s "$GITHUB_WORKSPACE/validation/systemui_pid.txt"
+
+      - name: Stop Cuttlefish
+        if: always()
+        shell: bash
+        run: |
+          export PATH="$AOSP_DIR/out/host/linux-x86/bin:$PATH"
+          stop_cvd || true
+
+      - name: Upload validation logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arina-cuttlefish-validation
+          path: validation/
+          if-no-files-found: ignore
+
+      - name: Validation summary
+        if: success()
+        run: |
+          echo "ARINA SystemUI compile: PASS"
+          echo "ARINA Cuttlefish product build: PASS"
+          echo "Cuttlefish boot_completed: PASS"
+          echo "SystemUI process check: PASS"
