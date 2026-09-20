@@ -30,6 +30,9 @@
 - ARINA-style grouped notification hierarchy on real AOSP groups
 - AOSP-driven lock-screen privacy redaction with ARINA privacy glass
 - expanded notification haptic/motion hooks without replacing AOSP actions
+- ARINA-style inline notification actions on real AOSP action views
+- ARINA-styled RemoteInput quick replies without bypassing lockscreen security
+- ARINA-styled real swipe menu actions with AOSP accessibility/click behavior preserved
 - biometric state indicator driven by real Keyguard auth state
 - flashlight + camera AOSP Quick Affordance defaults with manual customization
 - swipe-to-bouncer ARINA visual hint on the real Keyguard root
