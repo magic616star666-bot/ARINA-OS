@@ -2,7 +2,7 @@
 set -euo pipefail
 
 AOSP_DIR="${AOSP_DIR:-$HOME/aosp}"
-AOSP_BRANCH="${AOSP_BRANCH:-android-latest-release}"
+AOSP_BRANCH="${AOSP_BRANCH:-android16-release}"
 
 mkdir -p "$AOSP_DIR"
 cd "$AOSP_DIR"
