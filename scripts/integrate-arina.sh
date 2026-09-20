@@ -12,7 +12,9 @@ fi
 mkdir -p "$AOSP_DIR/vendor/arina"
 rsync -a --delete "$REPO_ROOT/vendor/arina/" "$AOSP_DIR/vendor/arina/"
 
-mkdir -p "$AOSP_DIR/packages/apps/ArinaHome"
-rsync -a --delete "$REPO_ROOT/packages/apps/ArinaHome/" "$AOSP_DIR/packages/apps/ArinaHome/"
+for app in ArinaHome ArinaLockScreen; do
+  mkdir -p "$AOSP_DIR/packages/apps/$app"
+  rsync -a --delete "$REPO_ROOT/packages/apps/$app/" "$AOSP_DIR/packages/apps/$app/"
+done
 
-echo "ARINA source layers integrated into $AOSP_DIR"
+echo "ARINA Home + Lock Screen source layers integrated into $AOSP_DIR"
