@@ -1,0 +1,3 @@
+trigger=systemui-cuttlefish-full
+branch=android16-release
+purpose=full compile and boot validation
