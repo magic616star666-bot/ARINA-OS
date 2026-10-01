@@ -5,6 +5,8 @@ on:
     branches: [try-ai-apk-build]
     paths-ignore:
       - 'try-ai-output/**'
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -53,14 +55,3 @@ jobs:
           name: TRY-AI-Universal-API-APK
           path: tryai_project/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
-
-      - name: Save APK as base64
-        shell: bash
-        run: |
-          mkdir -p try-ai-output
-          base64 -w0 tryai_project/app/build/outputs/apk/debug/app-debug.apk > try-ai-output/TRY-AI-Universal-API.apk.b64
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add try-ai-output/TRY-AI-Universal-API.apk.b64
-          git commit -m 'build: publish TRY AI APK [skip ci]' || exit 0
-          git push origin HEAD:try-ai-apk-build
