@@ -23,7 +23,7 @@ jobs:
       - name: Restore TRY AI source
         shell: bash
         run: |
-          cat try-ai-build/part*.b64 > try-ai-source.zip.b64
+          cat try-ai-build/p00_*.b64 try-ai-build/part01.b64 try-ai-build/part02.b64 try-ai-build/part03.b64 > try-ai-source.zip.b64
           base64 -d try-ai-source.zip.b64 > try-ai-source.zip
           unzip -q try-ai-source.zip
           test -f tryai_project/app/build.gradle.kts
