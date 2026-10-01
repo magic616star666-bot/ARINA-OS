@@ -1,0 +1,7 @@
+plugins { id 'com.android.application' }
+android {
+ namespace 'com.arina.mobile'
+ compileSdk 36
+ defaultConfig { applicationId 'com.arina.mobile'; minSdk 26; targetSdk 36; versionCode 1; versionName '1.0.0-clean' }
+ buildTypes { debug { minifyEnabled false }; release { minifyEnabled false } }
+}
