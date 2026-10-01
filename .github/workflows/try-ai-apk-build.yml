@@ -1,0 +1,62 @@
+name: Build TRY AI Universal API APK
+
+on:
+  push:
+    branches: [try-ai-apk-build]
+    paths-ignore:
+      - 'try-ai-output/**'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      ANDROID_HOME: /usr/local/lib/android/sdk
+      ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore TRY AI source
+        shell: bash
+        run: |
+          cat try-ai-build/p00_*.b64 try-ai-build/part01.b64 try-ai-build/part02.b64 try-ai-build/part03.b64 > try-ai-source.zip.b64
+          base64 -d try-ai-source.zip.b64 > try-ai-source.zip
+          unzip -q try-ai-source.zip
+          test -f tryai_project/app/build.gradle.kts
+          echo 'sdk.dir=/usr/local/lib/android/sdk' > tryai_project/local.properties
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Install Android SDK 35
+        shell: bash
+        run: |
+          SDKMANAGER='/usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager'
+          yes | "$SDKMANAGER" --licenses >/dev/null 2>&1 || true
+          "$SDKMANAGER" 'platform-tools' 'platforms;android-35' 'build-tools;35.0.0'
+
+      - name: Build APK
+        working-directory: tryai_project
+        run: gradle :app:assembleDebug --no-daemon --stacktrace
+
+      - name: Publish APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TRY-AI-Universal-API-APK
+          path: tryai_project/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
