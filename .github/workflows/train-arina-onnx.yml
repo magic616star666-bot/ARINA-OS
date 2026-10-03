@@ -1,0 +1,44 @@
+name: Train ARINA ONNX
+
+on:
+  push:
+    branches:
+      - arina-onnx-training
+  workflow_dispatch:
+
+jobs:
+  train:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install system audio tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg sox libsndfile1 espeak-ng
+
+      - name: Train and validate ARINA model
+        run: |
+          chmod +x onnx-training/train_arina.sh
+          ./onnx-training/train_arina.sh
+
+      - name: Upload final ARINA ONNX
+        uses: actions/upload-artifact@v4
+        with:
+          name: arina-onnx-final
+          path: |
+            onnx-training/arina.onnx
+            onnx-training/arina.onnx.sha256
+          if-no-files-found: error
+          retention-days: 30
