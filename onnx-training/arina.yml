@@ -1,0 +1,57 @@
+# ARINA high-accuracy custom openWakeWord model
+model_name: "arina"
+
+target_phrase:
+  - "arina"
+  - "areena"
+  - "arena"
+  - "a reena"
+
+custom_negative_phrases:
+  - "rina"
+  - "reena"
+  - "marina"
+  - "karina"
+  - "irina"
+  - "alina"
+  - "sabrina"
+  - "ariana"
+  - "nareena"
+  - "are you"
+  - "a reader"
+  - "a renal"
+
+n_samples: 20000
+n_samples_val: 4000
+
+tts_batch_size: 50
+augmentation_batch_size: 16
+augmentation_rounds: 3
+
+piper_sample_generator_path: "./piper-sample-generator"
+output_dir: "./arina_build"
+
+rir_paths:
+  - "./rir_clips"
+
+background_paths:
+  - "./background_clips"
+
+background_paths_duplication_rate:
+  - 1
+
+false_positive_validation_data_path: "./negative_val.npy"
+
+feature_data_files:
+  "generic_negative": "./negative_train.npy"
+
+batch_n_per_class:
+  "generic_negative": 1024
+  "adversarial_negative": 128
+  "positive": 128
+
+model_type: "dnn"
+layer_size: 64
+steps: 35000
+max_negative_weight: 2500
+target_false_positives_per_hour: 0.05
